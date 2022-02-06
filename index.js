@@ -1,10 +1,14 @@
 import express from 'express';
-import http from 'http';
+import 'dotenv/config';
+import initRoutes from './startup/routes.js';
+import { initDB } from './startup/db.js';
 
 const app = express();
-const http = createServer(app);
 
+initRoutes(app);
+initDB();
 
-const server = http.listen(PORT, () => {
+const PORT = 3000;
+app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
-})
+});

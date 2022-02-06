@@ -1,8 +1,9 @@
-import { DataTypes } from 'sequelize';
-import sequelize from '../startup/db.js';
+import { DataTypes, Model } from 'sequelize';
+import { sequelize } from '../startup/db.js';
 import User from './user.js';
 
-const Transaction = sequelize.define('Transaction', {
+class Transaction extends Model {};
+Transaction.init({
     sender_id: {
         type: DataTypes.INTEGER,
         references: {
@@ -27,6 +28,11 @@ const Transaction = sequelize.define('Transaction', {
         type: DataTypes.ENUM,
         values: ['PENDING', 'COMPLETED', 'CANCELLED'],
     },
+}, {
+    sequelize,
+    modelName: 'Transaction',
 });
+
+await Transaction.sync();
 
 export default Transaction;
